@@ -1,0 +1,59 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.logo {
+    width: 150px;
+}
+
+.bg-blue {
+    background-color: #003b95;
+}
+
+.fs-24 {
+    font-size: 45px;
+}
+
+.fw-900 {
+    font-weight: 900;
+}
+
+.w-35 {
+    width: 35%;
+}
+
+.w-15 {
+    width: 15%;
+}
+
+.outline-0 {
+    outline: none;
+}
+
+.btn-hover:hover {
+    background-color: #003b95;
+}
+
+.mt-7 {
+    margin-top: 5rem;
+}
+
+.alert-white {
+    background-color: #fff !important;
+}
+
+.list-group-disc {
+    list-style-type: disc !important;
+}
+
+.z-index-5 {
+    z-index: 5;
+}
+
+@media only screen and (max-width: 435px) {
+    .mt-7 {
+        margin-top: 15rem;
+    }
+}
