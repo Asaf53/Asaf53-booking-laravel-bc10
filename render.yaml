@@ -1,8 +1,8 @@
 services:
-  - name: bus-track
+  - name: booking-laravel
     type: web
     env: docker
-    repo: https://github.com/Asaf53/bus-track
+    repo: https://github.com/Asaf53/Asaf53-booking-laravel-bc10
     plan: free
     branch: main
     region: frankfurt
