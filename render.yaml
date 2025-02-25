@@ -1,0 +1,10 @@
+services:
+  - name: bus-track
+    type: web
+    env: docker
+    repo: https://github.com/Asaf53/bus-track
+    plan: free
+    branch: main
+    region: frankfurt
+    healthCheckPath: /api/health
+    autoDeploy: true
