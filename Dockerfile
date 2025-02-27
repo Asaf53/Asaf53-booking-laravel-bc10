@@ -24,9 +24,5 @@ RUN chmod -R 775 storage bootstrap/cache
 # Expose port
 EXPOSE 9000
 
-# Run migrations and seeders before starting PHP-FPM
-CMD php artisan migrate --force && \
-    php artisan db:seed --class=roles && \
-    php artisan db:seed --class=country_city && \
-    php artisan db:seed --class=User && \
-    php-fpm
+# Start PHP-FPM
+CMD ["php-fpm"]
