@@ -8,3 +8,8 @@ services:
     region: frankfurt
     healthCheckPath: /api/health
     autoDeploy: true
+    postdeploy: 
+      - php artisan migrate --force
+      - php artisan db:seed --class=roles
+      - php artisan db:seed --class=country_city
+      - php artisan db:seed --class=User
