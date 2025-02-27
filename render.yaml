@@ -8,12 +8,19 @@ services:
     region: frankfurt
     healthCheckPath: /api/health
     autoDeploy: true
+    startCommand: php-fpm
+
+  - name: booking-laravel-migrations
+    type: worker
+    env: docker
+    repo: https://github.com/Asaf53/Asaf53-booking-laravel-bc10
+    plan: free
+    branch: main
+    region: frankfurt
+    autoDeploy: true
     startCommand: |
       php artisan config:cache &&
-      php artisan migrate --force
-      php artisan db:seed --class=roles
-      php artisan db:seed --class=country_city
+      php artisan migrate --force &&
+      php artisan db:seed --class=roles &&
+      php artisan db:seed --class=country_city &&
       php artisan db:seed --class=User
-      php-fpm
-
-
