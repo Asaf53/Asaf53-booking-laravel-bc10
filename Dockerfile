@@ -1,28 +1,30 @@
-# Use PHP 8.2 with FPM
-FROM php:8.2-fpm
+FROM php:8.2-apache
 
-# Set working directory
-WORKDIR /var/www
-
-# Install system dependencies and PHP extensions
+# Install dependencies
 RUN apt-get update && apt-get install -y \
-    zip unzip curl git libpng-dev libjpeg-dev libfreetype6-dev \
-    && docker-php-ext-install pdo pdo_mysql
+    libzip-dev \
+    zip \
+    unzip \
+    && docker-php-ext-install pdo_mysql zip
 
-# Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Enable Apache rewrite module
+RUN a2enmod rewrite
 
-# Copy Laravel files
+# Set the working directory
+WORKDIR /var/www/html
+
+# Copy the Laravel project files
 COPY . .
 
-# Install Laravel dependencies
-RUN composer install --no-dev --no-interaction --prefer-dist
+# Copy the deployment script
+COPY deploy.sh /usr/local/bin/deploy.sh
+RUN chmod +x /usr/local/bin/deploy.sh
 
-# Set permissions
-RUN chmod -R 775 storage bootstrap/cache
+# Install Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Expose port
-EXPOSE 9000
+# Expose port 80
+EXPOSE 80
 
-# Start PHP-FPM
-CMD ["php-fpm"]
+# Run the deployment script
+CMD ["/usr/local/bin/deploy.sh"]
