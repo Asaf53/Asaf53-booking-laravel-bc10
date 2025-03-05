@@ -16,9 +16,12 @@ WORKDIR /var/www/html
 # Copy the Laravel project files
 COPY . .
 
-# Copy the deployment script
-COPY deploy.sh /usr/local/bin/deploy.sh
-RUN chmod +x /usr/local/bin/deploy.sh
+# Ensure deploy.sh is copied correctly
+COPY deploy.sh /var/www/html/deploy.sh
+
+# Set correct permissions
+RUN chmod -R 775 storage bootstrap/cache
+RUN chmod +x /var/www/html/deploy.sh
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -27,4 +30,4 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 EXPOSE 80
 
 # Run the deployment script
-CMD ["/usr/local/bin/deploy.sh"]
+CMD ["/var/www/html/deploy.sh"]
