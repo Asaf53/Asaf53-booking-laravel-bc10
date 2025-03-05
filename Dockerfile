@@ -16,11 +16,13 @@ WORKDIR /var/www/html
 # Copy the Laravel project files
 COPY . .
 
+# Set correct permissions for Apache
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 775 /var/www/html/storage \
+    && chmod -R 775 /var/www/html/bootstrap/cache
+
 # Ensure deploy.sh is copied correctly
 COPY deploy.sh /var/www/html/deploy.sh
-
-# Set correct permissions
-RUN chmod -R 775 storage bootstrap/cache
 RUN chmod +x /var/www/html/deploy.sh
 
 # Install Composer
