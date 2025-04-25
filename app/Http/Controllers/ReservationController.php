@@ -39,8 +39,8 @@ class ReservationController extends Controller
         request()->validate([
             'country_id' => 'required',
             'city_id' => 'required',
-            'countAdults' => 'required',
-            'countChild' => 'required',
+            'countAdults' => 'nullable',
+            'countChild' => 'nullable',
             'daterange' => 'required',
         ]);
         $country_id = request()->query('country_id');
